@@ -14,7 +14,7 @@ $(function(){
       method:'get',
       url:'/my/userinfo',
       success: function(res){
-        console.log(res); 
+        // console.log(res); 
         if(res.status !== 0) {
           return layer.msg('获取用户信息失败')
         }
@@ -25,7 +25,7 @@ $(function(){
   $('#btnReset').on('click',function(e){
     e.preventDefault()
     // initUserInfo()
-    
+
   })
 
   // 监听表单的提交事件
@@ -36,7 +36,7 @@ $(function(){
       url:'/my/userinfo',
       data :$(this).serialize(),
       success:function(res){
-        console.log(res);
+        // console.log(res);
         if(res.status!==0){
           return layer.msg('更新用户信息失败')
         }
