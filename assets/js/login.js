@@ -49,6 +49,7 @@ $(function () {
         if(res.status !== 0) {
           return layer.msg(res.message)
         }
+        console.log(res);
         layer.msg('登陆成功')
         localStorage.setItem('token',res.token)
         location.href = '/index.html'
