@@ -8,8 +8,8 @@ $(function(){
       }
     }
   })
-  ininUserInfo()
-  function ininUserInfo() {
+  initUserInfo()
+  function initUserInfo() {
     $.ajax({
       method:'get',
       url:'/my/userinfo',
@@ -24,6 +24,6 @@ $(function(){
   }
   $('#btnReset').on('click',function(e){
     e.preventDefault()
-    ininUserInfo()
+    initUserInfo()
   })
 })
