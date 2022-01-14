@@ -31,6 +31,7 @@ $(function () {
       if (res.status !== 0) {
         return layer.msg(res.message, { icon: 6 });
       }
+      console.log(res);
       layer.msg('注册成功请登录', { icon: 6 });
       $('#link_login').click()
     })
@@ -46,7 +47,7 @@ $(function () {
       success:function(res) {
         console.log(res);
         if(res.status !== 0) {
-          return layer.msg('登陆失败')
+          return layer.msg(res.message)
         }
         layer.msg('登陆成功')
         localStorage.setItem('token',res.token)
