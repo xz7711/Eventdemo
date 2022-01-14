@@ -14,7 +14,7 @@ $(function(){
       method:'get',
       url:'/my/userinfo',
       success: function(res){
-        // console.log(res);
+        console.log(res); 
         if(res.status !== 0) {
           return layer.msg('获取用户信息失败')
         }
@@ -24,6 +24,25 @@ $(function(){
   }
   $('#btnReset').on('click',function(e){
     e.preventDefault()
-    initUserInfo()
+    // initUserInfo()
+    
+  })
+
+  // 监听表单的提交事件
+  $('.layui-form').on('submit',function(e){
+    e.preventDefault()
+    $.ajax({
+      method : 'POST',
+      url:'/my/userinfo',
+      data :$(this).serialize(),
+      success:function(res){
+        console.log(res);
+        if(res.status!==0){
+          return layer.msg('更新用户信息失败')
+        }
+        layer.msg('更新用户信息成功')
+        window.parent.getUserInfo()
+      }
+    })
   })
 })
