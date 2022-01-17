@@ -21,12 +21,12 @@ $(function () {
         if (res.status !== 0) {
           return layer.msg('获取列表失败')
         }
-        // res.data = [
-        //   { id: 1, title: 'title', pub_date: '2021-1-16 20:9:3.817', cate_name: '美食', state: '草稿' },
-        //   { id: 2, title: 'title', cate_name: '美食', pub_date: '2021-1-16 20:8:8.817', state: '草稿' },
-        //   { id: 3, title: 'title', cate_name: '美食', pub_date: '2021-1-16 20:4:3.817', state: '草稿' },
-        //   { id: 4, title: 'title', cate_name: '美食', pub_date: '2021-1-16 20:8:3.817', state: '草稿' }
-        // ]
+        res.data = [
+          { id: 1, title: 'title', pub_date: '2021-1-16 20:9:3.817', cate_name: '美食', state: '草稿' },
+          { id: 2, title: 'title', cate_name: '美食', pub_date: '2021-1-16 20:8:8.817', state: '草稿' },
+          { id: 3, title: 'title', cate_name: '美食', pub_date: '2021-1-16 20:4:3.817', state: '草稿' },
+          { id: 4, title: 'title', cate_name: '美食', pub_date: '2021-1-16 20:8:3.817', state: '草稿' }
+        ]
         let strhtml = template('tpl-table', res)
         $('tbody').html(strhtml)
         renderPage(res.total)
@@ -65,7 +65,7 @@ $(function () {
   }
 
   // 监听筛选按钮表单提交事件
-  $('#form-serch').on('submit', function(e) {
+  $('#form-serch').on('submit', function (e) {
     e.preventDefault()
     let cate_id = $('[name=cate_Id]').val()
     let state = $('[name=state]').val()
@@ -75,23 +75,45 @@ $(function () {
   })
 
   //渲染分页
-  function renderPage(total){
+  function renderPage(total) {
     laypage.render({
       elem: 'pageBox' //注意，这里的 test1 是 ID，不用加 # 号
-      ,count:total,  //数据总数，从服务端得到
-      limit:q. pagesize,
-      curr:q. pagenum,
-      jump: function(obj, first){
+      , count: total,  //数据总数，从服务端得到
+      limit: q.pagesize,
+      curr: q.pagenum,
+      limits: [2, 3, 5, 8, 10],
+      layout: ['count', 'limit', 'prev', 'page', 'next', 'skip'],
+      jump: function (obj, first) {
         //obj包含了当前分页的所有参数，比如：
         // console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
         // console.log(obj.limit); //得到每页显示的条数
-        q.pagenum=obj.curr
+        q.pagesize = obj.limit
+        q.pagenum = obj.curr
         //首次不执行
-        if(!first){
+        if (!first) {
           initTable()
         }
-        
       }
     });
   }
+
+  $('body').on('click', '#btn-delete', function () {
+    let id = $(this).attr('data-Id')
+    layer.confirm('确认删除', {icon: 3, title:'提示'}, function(index){
+      console.log(index);
+      $.ajax({
+        method: 'GET ',
+        url: '/my/article/delete/' + id,
+        success:function(res){
+          if(res.status !==0) {
+            return layer.msg('删除失败')
+          }
+          layer.msg('删除成功')
+          initTable() 
+        }
+      })
+      layer.close(index);
+    });
+  
+  })
 })
