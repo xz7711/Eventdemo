@@ -24,8 +24,7 @@ $(function(){
   }
   $('#btnReset').on('click',function(e){
     e.preventDefault()
-    // initUserInfo()
-
+    initUserInfo()
   })
 
   // 监听表单的提交事件
