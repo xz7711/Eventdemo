@@ -15,26 +15,22 @@
     <div class="layui-card-header">文章列表</div>
     <div class="layui-card-body">
       <!-- 筛选区域 -->
-      <form class="layui-form">
+      <form class="layui-form" id="form-serch">
         <div class="layui-form-item layui-inline">
-          <select name="city">
-            <option value="">请选择一个城市</option>
-            <option value="010">北京</option>
-            <option value="021">上海</option>
-            <option value="0571">杭州</option>
-          </select> 
+          <select name="cate_Id">
+           
+          </select>
         </div>
         <div class="layui-form-item layui-inline">
-          <select name="city">
+          <select name="state">
             <option value="">所有状态</option>
             <option value="已发布">已发布</option>
             <option value="草稿">草稿</option>
-          </select> 
+          </select>
         </div>
         <div class="layui-form-item layui-inline">
-          <button type="button" class="layui-btn">筛选</button>
+          <button class="layui-btn" lay-submit lay-filter="formDemo">筛选</button>
         </div>
-        
       </form>
       <!-- 列表区域 -->
       <table class="layui-table">
@@ -57,7 +53,8 @@
         <tbody>
         </tbody>
       </table>
-      <!-- 页脚-->
+      <!-- 分页 -->
+      <div id="pageBox"></div>
     </div>
   </div>
 </body>
@@ -74,6 +71,13 @@
       </td>
     </tr>
     {{/each}}
+</script>
+
+<script type="text/html" id="tpl-cate">
+  <option value="">所有分类</option>
+  {{each data}}
+    <option value="{{$value.Id}}">{{$value.name}}</option>
+  {{/each}}
 </script>
 <script src="/assets/lib/layui/layui.all.js"></script>
 <script src="/assets/lib/jquery.js"></script>
